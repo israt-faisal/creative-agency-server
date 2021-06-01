@@ -131,15 +131,8 @@ app.post('/isAdmin', (req, res) => {
       const price = req.body.price;
       const details = req.body.details;
       console.log(name,email,service,file,price,details);
-      const filePath = `${__dirname}/orders/${file.name}`;
-
-      file.mv(filePath, err => {
-      if(err){
-          console.log(err);
-          return res.status(500).send({msg: 'failed to uplaod file '});
-
-      }
-      const newImg = fs.readFileSync(filePath);
+      
+      const newImg = req.files.file.data;
       const encImg =newImg.toString('base64');
 
       var projectfile ={
@@ -150,8 +143,6 @@ app.post('/isAdmin', (req, res) => {
 
       ordersCollection.insertOne({name, email,service,price,details,projectfile})
       .then(result => {
-          fs.remove(filePath, error => {
-              if(error) {console.log(error)}
               res.send(result.insertedCount > 0);
 
           })
@@ -159,8 +150,8 @@ app.post('/isAdmin', (req, res) => {
 
       })
     //   return res.send({name: file.name, path: `/${file.name}`})
-    })
-  })
+    
+  
  
 });
 
