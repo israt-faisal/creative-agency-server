@@ -1,0 +1,2 @@
+# creative-agency-server
+It's a server site of Creative Agency website where i've stored data for dynamic services and reviews. I've used Mongodb for storing database of clients, their orders that includes a form of many infos with a demo file, reviews,  and for admin's info. I've used Heroku app for deployment.
